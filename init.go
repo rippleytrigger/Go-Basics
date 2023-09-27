@@ -3,17 +3,27 @@ package main
 import (
 	"fmt"
 
-	"rsc.io/quote"
+	"log"
 
 	"hellobot/greetings"
 )
 
 func main() {
-	fmt.Println("Hello, World!")
+	// Set properties of the predefined Logger, including
+	// the log entry prefix and a flag to disable printing
+	// the time, source file, and line number.
+	log.SetPrefix("greetings: ")
+	log.SetFlags(0)
 
-	fmt.Println(quote.Go())
+	// A slice of names.
+	names := []string{"Gladys", "Samantha", "Darrin"}
 
-	// Get a greeting message and print it.
-	message := greetings.Hello("Gladys")
-	fmt.Println(message)
+	// Request greeting messages for the names.
+	messages, err := greetings.Hellos(names)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// If no error was returned, print the returned map of
+	// messages to the console.
+	fmt.Println(messages)
 }
